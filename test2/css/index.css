@@ -1,0 +1,38 @@
+/**
+  * Copyright (C) 2020 Seale
+  * Date: 2020-9-21 00:38:41
+  * Version: 1.0
+  * QQ: 1801157108
+  * Blog: https://www.imsle.com
+  * Author: Seale
+  * 复用样式请注明原作者,谢谢配合
+*/
+*{
+    padding: 0;
+    margin: 0;
+}
+#app{
+    padding: 50px;
+    width: 960px;
+    margin: 0 auto;
+}
+/*****************************************/
+
+/** base core css **/
+.container > .title{
+    font-size: 21px;
+    font-weight: 600;
+    text-align: center;
+    padding: 15px;
+}
+.button-group{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+
+/***防止非cli构建vue项目闪屏***/
+[v-cloak] {
+    display: none;
+}

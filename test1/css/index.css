@@ -1,0 +1,58 @@
+/**
+  * Copyright (C) 2020 Seale
+  * Date: 2020-9-21 00:38:41
+  * Version: 1.0
+  * QQ: 1801157108
+  * Blog: https://www.imsle.com
+  * Author: Seale
+  * 复用样式请注明原作者,谢谢配合
+*/
+
+*{
+    padding: 0;
+    margin: 0;
+}
+.header,.footer,.sidebar,.main{
+    background: black;
+    color: white;
+    text-align: center;
+}
+.header{
+    height: 180px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+.footer{
+    height: 180px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+.content{
+    height: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content:nth-child(n+2){
+    margin-top: 10px;
+}
+
+.content > .sidebar{
+    height: 100%;
+    width: 30%;
+}
+
+.content > .main{
+    height: 100%;
+    width: 69%;
+}
+
+/***********************************************************************************/
+.f-c-c{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

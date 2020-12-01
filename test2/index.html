@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="app">
+    <div class="container" v-cloak>
+        <div class="title">2018年重庆市工程技术建设专业高级职务申报人员综合评估</div>
+        <el-form ref="form" :model="form" label-width="120px">
+            <el-divider style="color: #222">
+                <i class="el-icon-s-order"></i>
+                <span>申报材料</span>
+            </el-divider>
+            <el-form-item label="评审编号">
+                <el-input v-model="form.fromNumber" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="申报类型">
+                <el-radio-group v-model="applyType" disabled>
+                    <el-radio-button label="正常申报"></el-radio-button>
+                    <el-radio-button label="破格申报"></el-radio-button>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="姓名">
+                <el-input v-model="form.name" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="年龄">
+                <el-input v-model="form.age" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="单位职称">
+                <el-input v-model="form.positionTitle" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="申报职称专业">
+                <el-input v-model="form.applyPositionMajor" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="申报人所属专业">
+                <el-input v-model="form.applyMajor" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="政治思想条件">
+                <el-radio-group v-model="form.political" disabled>
+                    <el-radio label="1">单位年审</el-radio>
+                    <el-radio label="2">党纪政纪</el-radio>
+                    <el-radio label="3">责任事故等</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="学历条件">
+                <el-radio-group v-model="form.education" disabled>
+                    <el-radio label="1">博士</el-radio>
+                    <el-radio label="2">硕士</el-radio>
+                    <el-radio label="3">大学</el-radio>
+                    <el-radio label="4">大专</el-radio>
+                    <el-radio label="5">中专</el-radio>
+                    <el-radio label="6">高中</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="任工程师年限">
+                <el-input v-model="form.year" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="破格条件">
+                <el-radio-group v-model="form.isNormal" disabled>
+                    <el-radio :label="true">具有破格条件</el-radio>
+                    <el-radio :label="false">不具有破格条件</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="继续教育">
+                <el-input v-model="form.continuingEducation" disabled></el-input>
+            </el-form-item>
+            <el-divider>
+                <i class="el-icon-s-check"></i>
+                <span>评审项目</span>
+            </el-divider>
+            <el-form-item label="内容完整性">
+                <el-radio-group v-model="form.review.content">
+                    <el-radio label="A级"></el-radio>
+                    <el-radio label="B级"></el-radio>
+                    <el-radio label="C级"></el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="填写规范性">
+                <el-radio-group v-model="form.review.rule">
+                    <el-radio label="A级"></el-radio>
+                    <el-radio label="B级"></el-radio>
+                    <el-radio label="C级"></el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="申报态度性">
+                <el-radio-group v-model="form.review.attitude">
+                    <el-radio label="A">A(好)</el-radio>
+                    <el-radio label="B">B(一般)</el-radio>
+                    <el-radio label="C">C(差)</el-radio>
+                </el-radio-group>
+            </el-form-item>
+
+            <el-form-item label="能力业绩条件">
+                <el-cascader
+                        v-model="form.review.performance"
+                        :options="options"
+                        @change="handleChange"></el-cascader>
+            </el-form-item>
+
+            <el-form-item label="业绩成果条件">
+                <el-cascader
+                        v-model="form.review.result"
+                        :options="options"
+                        @change="handleChange"></el-cascader>
+            </el-form-item>
+            <el-form-item label="论文著作条件">
+                <el-cascader
+                        v-model="form.review.book"
+                        :options="options"
+                        @change="handleChange"></el-cascader>
+            </el-form-item>
+            <el-form-item label="专家意见">
+                <el-radio-group v-model="form.review.opinion">
+                    <el-radio :label="true">同意</el-radio>
+                    <el-radio :label="false">不同意</el-radio>
+                </el-radio-group>
+            </el-form-item>
+
+            <el-form-item label="同意理由" v-if="form.review.opinion === true && form.review.baseAcceptResult.length === 0">
+                <el-checkbox-group v-model="form.review.acceptResult">
+                    <el-checkbox label="综合能力强"></el-checkbox>
+                    <el-checkbox label="业绩突出"></el-checkbox>
+                    <el-checkbox label="成果突出"></el-checkbox>
+                    <el-checkbox label="学术突出"></el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
+
+            <el-form-item label="基本同意理由" v-if="form.review.opinion === true && form.review.acceptResult.length === 0">
+                <el-checkbox-group v-model="form.review.baseAcceptResult">
+                    <el-checkbox label="综合能力一般"></el-checkbox>
+                    <el-checkbox label="业绩一般"></el-checkbox>
+                    <el-checkbox label="成果一般"></el-checkbox>
+                    <el-checkbox label="论文一般"></el-checkbox>
+                    <el-checkbox label="其他理由"></el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
+
+        </el-form>
+        <div class="button-group">
+            <el-button type="primary" @click="onSubmit">确认评估</el-button>
+        </div>
+
+    </div>
+</div>
+
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!-- import self JavaScript -->
+<script src="js/index.js" type="module"></script>
+</body>
+</html>
