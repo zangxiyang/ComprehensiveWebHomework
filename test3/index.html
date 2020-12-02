@@ -40,7 +40,7 @@
     </div>
     <div class="footer-group flex f-al-c f-j-sb">
         <div class="info">
-            第1页,共27条,(每页显示10条)
+
         </div>
         <div class="flex f-al-c">
             <button class="btn btn-green" style="margin-right: 10px" onclick="prePage()">上一页</button>
@@ -51,44 +51,47 @@
     <div class="modal-container hide">
         <div class="modal">
             <div class="header-container">
-                <span>新增学生信息</span>
+                <span id="modal-title"></span>
             </div>
             <div class="content">
                 <label for="studentId">
                     <span>学号</span>
-                    <input type="text" id="studentId">
+                    <input type="text" id="studentId" name="studentId">
                 </label>
                 <label for="studentName">
                     <span>姓名</span>
-                    <input type="text" id="studentName">
+                    <input type="text" id="studentName" name="studentName">
                 </label>
                 <label for="college">
                     <span>学院</span>
-                    <input type="text" id="college">
+                    <input type="text" id="college" name="college">
                 </label>
                 <label for="major">
                     <span>专业</span>
-                    <input type="text" id="major">
+                    <input type="text" id="major" name="major">
                 </label>
                 <label for="grade">
                     <span>年级</span>
-                    <input type="text" id="grade">
+                    <input type="text" id="grade" name="grade">
                 </label>
                 <label for="class">
                     <span>班级</span>
-                    <input type="text" id="class">
+                    <input type="text" id="class" name="class">
                 </label>
                 <label for="age">
                     <span>年龄</span>
-                    <input type="text" id="age">
+                    <input type="text" id="age" name="age">
                 </label>
             </div>
             <div class="footer">
-                <button class="btn btn-green">提交</button>
-                <button class="btn btn-red">取消</button>
+                <button class="btn btn-green" id="modal-btn-left"></button>
+                <button class="btn btn-red" id="modal-btn-right">取消</button>
             </div>
         </div>
     </div>
+
+
+
 </div>
 <script src="js/index.js"></script>
 </body>

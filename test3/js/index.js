@@ -1,9 +1,27 @@
-// 获取对应组件
-
 /******************************************** 模态框 ********************************************/
 
-let btn_modalSubmit = document.getElementsByClassName('modal')[0].getElementsByClassName('footer')[0].getElementsByTagName('button')[0]
-let btn_modalCancel = document.getElementsByClassName('modal')[0].getElementsByClassName('footer')[0].getElementsByTagName('button')[1]
+// 模态框标题
+let modal_title = document.getElementById('modal-title')
+// 模态框左侧按钮
+let btn_modal_left = document.getElementById('modal-btn-left')
+// 模态框右侧按钮
+let btn_modal_right = document.getElementById('modal-btn-right')
+
+let modal_container = document.getElementsByClassName('modal-container')[0]
+
+function reloadModal() {
+    modal_title = document.getElementById('modal-title')
+    btn_modal_left = document.getElementById('modal-btn-left')
+    btn_modal_right = document.getElementById('modal-btn-right')
+    modal_container = document.getElementsByClassName('modal-container')[0]
+    // 模态框中取消按钮监听事件
+    btn_modal_right.addEventListener('click', () => {
+        // 当取消按钮被点击
+        modal_container.classList.add('hide')
+        // 清理
+        clear()
+    })
+}
 
 /********************************************  结束  ********************************************/
 
@@ -38,13 +56,13 @@ let data = []
 /********************************************* 结束 *********************************************/
 
 
-
+/********************************************* 预处理 *********************************************/
 // 生成表格的数据
-const num = 50
+const num = 79
 for (let i = 0; i < num; i++) {
     let obj = {
-        id: i+1,
-        studentId: `918230101${i>10? i : '0'+i}`,
+        id: i + 1,
+        studentId: `918230101${i >= 10 ? i : '0' + i}`,
         studentName: getName(),
         college: '人工智能与大数据学院',
         major: '大数据',
@@ -62,14 +80,18 @@ if (pagination.total / pagination.size !== 0) {
     pagination.hasNextPage = true
 }
 pagination.hasPrePage = false
-pagination.totalPage = pagination.total / pagination.size
+pagination.totalPage = Number(Math.ceil(pagination.total / pagination.size))
+
+/***************************************************************************************************/
 
 
+/**
+ * 页面加载完毕
+ */
 window.onload = function () {
     // 页面加载完毕
     // console.log(data)
     // console.log(pagination)
-    console.log(table_tbody)
     // 加载首页表格数据
     loadData()
     // 设置底部信息
@@ -79,6 +101,10 @@ window.onload = function () {
 
 /********************************************* utils function *********************************************/
 
+/**
+ * 取随机名字
+ * @returns {string}
+ */
 function getName() {
     const familyNames = ["赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈",
         "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
@@ -149,14 +175,27 @@ function insertData(obj) {
     tr.appendChild(td)
     // 为表格添加操作列
     td = document.createElement('td')
-    td.innerHTML = `
+    /*td.innerHTML = `
     <div class="operation flex f-al-c f-j-c">
-      <a href="JavaScript:;" style="margin-right: 10px">查看</a>
+      <a href="JavaScript:;" style="margin-right: 10px" onclick="bindModalWatch()">查看</a>
       <a href="JavaScript:;">修改</a>
     </div>
-    `
+    `*/
+    let div = document.createElement('div')
+    div.classList.add('operation', 'flex', 'f-al-c', 'f-j-c')
+    let watch = document.createElement('a')
+    watch.setAttribute('href', 'JavaScript:;')
+    watch.setAttribute('style', 'margin-right: 10px')
+    watch.addEventListener('click', () => bindModalWatch(obj)) // 绑定事件
+    watch.innerText = '查看'
+    let alter = document.createElement('a')
+    alter.setAttribute('href', 'JavaScript:;')
+    alter.addEventListener('click', () => bindModalAlter(obj)) // 绑定事件
+    alter.innerText = '修改'
+    div.appendChild(watch)
+    div.appendChild(alter)
+    td.appendChild(div)
     tr.appendChild(td)
-    console.log(tr)
     // 在表格中插入单行
     table_tbody.appendChild(tr)
 }
@@ -165,25 +204,31 @@ function insertData(obj) {
 /**
  * 设置底部信息
  */
-function setInfo(){
+function setInfo() {
+    console.log('当前页数:' + pagination.current)
     pagination_info.innerText = `第${pagination.current}页 / 共${pagination.totalPage}页,共${pagination.total}条,(每页显示${pagination.size}条)`
 }
 
 
 /**
  * 加载数据
+ * 默认加载第一页
  */
-function loadData(current = 1){
-    if (current === 1){
-        for (let i = 0 ; i < pagination.size ; i++){
+function loadData(current = 1) {
+    // 清空数据
+    table_tbody.innerHTML = ''
+    if (current === 1) {
+        for (let i = 0; i < pagination.size; i++) {
             insertData(data[i])
         }
-    }else{
+    } else {
         // 开始计算开始的count数
-        const start = (pagination.current - 1) * pagination.size
-        const end = start + pagination.size
+        let start = (pagination.current - 1) * pagination.size
+        let end = start + pagination.size
+        // 进行边界判断
+        if (end > pagination.total) end = pagination.total
         // 渲染表格数据
-        for (let i = start ; i < end ; i++){
+        for (let i = start; i < end; i++) {
             insertData(data[i])
         }
     }
@@ -193,11 +238,11 @@ function loadData(current = 1){
 /**
  * 翻页 -> 上一页
  */
-function prePage(){
+function prePage() {
     // 判断是否有上一页，没有则阻断操作
     if (pagination.hasPrePage === false) return
     // 具备上一页，则执行翻页操作
-    pagination.current --
+    pagination.current--
     // 重新渲染表格数据
     table_tbody.innerHTML = ''
     loadData(pagination.current)
@@ -211,11 +256,11 @@ function prePage(){
 /**
  * 翻页 -> 下一页
  */
-function nextPage(){
+function nextPage() {
     // 判断是否有下一页，没有则阻断操作
     if (pagination.hasNextPage === false) return
     // 具备上一页，则执行翻页操作
-    pagination.current ++
+    pagination.current++
     // 重新渲染表格数据
     table_tbody.innerHTML = ''
     loadData(pagination.current)
@@ -228,19 +273,130 @@ function nextPage(){
 /**
  * 重新计算分页对象
  */
-function calcPagination(){
-    if (pagination.current === pagination.totalPage){
+function calcPagination() {
+    if (pagination.current === pagination.totalPage) {
         // 当前为最后一页
         pagination.hasPrePage = true
         pagination.hasNextPage = false
-    }else if (pagination.current === 1){
+    } else if (pagination.current === 1) {
         // 当前为首页
         pagination.hasNextPage = true
         pagination.hasPrePage = false
-    }else{
+    } else {
         // 当前为中间页
         pagination.hasPrePage = true
         pagination.hasNextPage = true
     }
 
 }
+
+/*****************************************************************************************************************/
+
+/****************************************** 全局通用事件绑定 ********************************************************/
+
+// 新增按钮监听事件
+btn_globalAdd.addEventListener('click', () => {
+    // 当新增按钮被点击
+    // 重新绑定模态框内容
+    bindModalAdd()
+    modal_container.classList.remove('hide')
+})
+// 模态框中取消按钮监听事件
+btn_modal_right.addEventListener('click', () => {
+    // 当取消按钮被点击
+    modal_container.classList.add('hide')
+    // 清理
+    clear()
+})
+/*****************************************************************************************************************/
+
+/****************************************** 特定逻辑处理 ********************************************************/
+
+/**
+ * 绑定新增模态框处理
+ */
+function bindModalAdd() {
+    modal_title.innerText = '新增学生信息'
+    btn_modal_left.innerText = '提交'
+}
+
+/**
+ * 绑定查看模态框处理
+ */
+function bindModalWatch(obj) {
+    modal_title.innerText = '查看学生信息'
+    btn_modal_left.classList.add('hide') // 隐藏左侧按钮
+    for (let i in obj) {
+        // 将所有的input禁用
+        if (i === 'id') continue;
+        document.getElementById(i).value = obj[i]
+        document.getElementById(i).setAttribute('disabled', 'true')
+    }
+    modal_container.classList.remove('hide')
+}
+
+/**
+ * 绑定修改模态框处理
+ * @param obj
+ */
+function bindModalAlter(obj) {
+    console.log('开始绑定')
+    modal_title.innerText = '查看学生信息'
+    btn_modal_left.innerText = '保存'
+    for (let i in obj) {
+        if (i === 'id') continue;
+        document.getElementById(i).value = obj[i]
+    }
+    // 绑定按钮点击事件
+    btn_modal_left.addEventListener('click', () => alterInfo(obj))
+    modal_container.classList.remove('hide')
+}
+
+
+/**
+ * 修改信息
+ * @param obj
+ */
+function alterInfo(obj) {
+    // 获取id
+    let id = obj.id
+    // 获取新数据
+    for (let i in obj) {
+        if (i === 'id') continue;
+        obj[i] = document.getElementById(i).value // 重新赋值
+    }
+    console.log(obj)
+    data[id - 1] = obj
+    console.log(data[id - 1])
+    console.log("更改了第" + (id - 1) + "条数据")
+    // 重载数据
+    loadData()
+    // 将模态框隐藏
+    modal_container.classList.add('hide')
+    clear()
+}
+
+
+/**
+ * 清除标题内容等
+ * 重新初始化模态框
+ */
+function clear() {
+    modal_title.innerText = ''
+    btn_modal_left.innerText = ''
+    if (btn_modal_left.classList.contains('hide')) btn_modal_left.classList.remove('hide')
+    // 清楚input内容
+    let labels = document.getElementsByClassName('modal')[0].getElementsByClassName('content')[0].getElementsByTagName('label')
+    for (let i = 0; i < labels.length; i++) {
+        labels[i].getElementsByTagName('input')[0].value = undefined
+        labels[i].getElementsByTagName('input')[0].removeAttribute('disabled')
+    }
+    console.log(modal_container)
+    // 进行重新渲染,防止绑定事件和值的冲突
+    let clone = modal_container.cloneNode(true)
+    modal_container.remove()
+    document.getElementsByClassName('container')[0].appendChild(clone)
+    reloadModal() // 重载模态框
+}
+
+/****************************************** end ***************************************************************/
