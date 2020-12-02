@@ -1,0 +1,193 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    background: #e3e3e3;
+}
+
+/******************************** page core css ********************************/
+
+.container {
+    padding: 10px 20px;
+}
+
+.container > .title-line {
+    display: flex;
+    font-size: 20px;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-line:after {
+    content: '';
+    height: 10px;
+    background: #b18269;
+    margin-left: 20px;
+    flex: 1;
+}
+
+.title-line:before {
+    content: '';
+    height: 10px;
+    background: #b18269;
+    margin-right: 20px;
+    flex: 1;
+}
+
+.button-group{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.button-group > button{
+    margin-right: 10px;
+}
+
+.footer-group{
+    margin-top: 20px;
+}
+.footer-group > .info{
+    letter-spacing: 2px;
+}
+/********************************Default Widget Css*******************************/
+
+/*基本按钮样式*/
+.btn {
+    box-sizing: border-box;
+    height: 40px;
+    width: 120px;
+    border: 1px solid #222222;
+    color: #eee;
+}
+
+button:focus {
+    outline: none;
+}
+
+
+/*绿色按钮样式*/
+.btn-green {
+    background: #29a014;
+}
+
+.btn-green:active {
+    background: #175b0b;
+}
+
+/*红色按钮样式*/
+.btn-red {
+    background: #920404;
+}
+
+.btn-red:active {
+    background: #530606;
+}
+
+/*表格样式*/
+
+table{
+
+}
+table thead{
+    background: #c6c6c6;
+}
+table thead tr{
+    font-size: 14px;
+    height: 50px;
+}
+table tbody td{
+    height: 30px;
+    text-align: center;
+    background: #eeeeee;
+}
+table tbody tr:nth-child(2n) > td{
+    background: #c5c4cd;
+}
+table tbody .operation > a{
+    color: #ba0707;
+    text-decoration: none;
+}
+table tbody .operation > a:active{
+    color: #920404;
+}
+
+/*模态框样式*/
+.modal-container{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    background: rgba(0,0,0,.4);
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 600px;
+    background: #fff;
+}
+.modal-container.hide{
+    display: none;
+}
+.modal > .header-container{
+    padding: 10px;
+    background: #222222;
+    color: #ffffff;
+}
+.modal > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex: 1;
+}
+.modal > .content label{
+    margin-top: 10px;
+}
+.modal > .footer{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    padding: 0 20px;
+    border-top: 1px solid #222222;
+}
+.modal > .footer >button{
+    margin-right: 10px;
+}
+.modal > .footer >button:last-child{
+    margin: 0 !important;
+}
+/********************************Default Core Css*******************************/
+.flex {
+    display: flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-flex;
+}
+
+.f-al-c {
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.f-j-c {
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+.f-j-sb{
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+}
