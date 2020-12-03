@@ -107,6 +107,26 @@ window.onload = function () {
 
 /********************************************* utils function *********************************************/
 
+
+/**
+ * 去除数组中的空值
+ * @param array 需要被处理的数组
+ * @returns {*}
+ */
+function trimSpace(array){
+    for(let i = 0 ;i<array.length;i++)
+    {
+        if(array[i] == " " || array[i] == null || typeof(array[i]) == "undefined")
+        {
+            array.splice(i,1);
+            i= i-1;
+
+        }
+    }
+    return array;
+}
+
+
 /**
  * 取随机名字
  * @returns {string}
@@ -140,10 +160,31 @@ function getName() {
  *  填充数据
  */
 function insertData(obj) {
+    if (obj === undefined) return
     let tr = document.createElement('tr')
     let td = document.createElement('td')
     let input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
+    input.addEventListener('click',function (event){
+        // 绑定监听对象
+        let id = this.parentNode.parentNode.children[1].innerHTML
+        if (event.target.checked){
+            // 当单条被选中时
+            selectsIds.push(id)
+            console.log('选中了')
+            console.log(selectsIds)
+        }else{
+            // 进行删除
+            for (let i in selectsIds){
+                if (selectsIds[i].id === id){
+                    // 当前id相同则删除
+                    selectsIds.splice(i,1)
+                }
+            }
+            console.log('取消了')
+            console.log(selectsIds)
+        }
+    })
     td.appendChild(input)
     // 为表格添加第一列
     tr.appendChild(td)
@@ -522,16 +563,24 @@ function deleteData(){
     if (selectsIds.length === 0 ) return // 当前没有选中，则不执行操作
     // 如果存在选中项则进行删除
     console.log(selectsIds)
+    // 进行删除
     for (let i in selectsIds){
-        data.splice(selectsIds[i]-1,1) //进行删除
+        data[selectsIds[i] - 1] = undefined
     }
-    console.log(data)
-    // 重载当前页的数据
-    loadData(pagination.current)
+    // 数组去除空串
+    data = trimSpace(data)
+    // 数组id进行重新排序
+    for (let i = 0 ; i < data.length; i++){
+        if (data[i].id != i){
+            data[i].id = i + 1
+        }
+    }
     // 重新计算分页对象
     calcPagination()
     // 设置底部信息
     setInfo()
+    // 重载当前页的数据
+    loadData(pagination.current)
     // 重制选择状态
     resetSelectAllStatus()
 }
