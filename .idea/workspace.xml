@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="07d1a668-95f5-4c0b-8162-499fd20a1e26" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/test3/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test3/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test3/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/test3/js/index.js" afterDir="false" />
     </list>
@@ -43,7 +42,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1l3vULqQw3yaDG2clCy5Bf3uxXC" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -52,10 +50,12 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,6 +66,8 @@
       <option name="presentableId" value="Default" />
       <updated>1606838603891</updated>
       <workItem from="1606838604950" duration="7917000" />
+      <workItem from="1606876943137" duration="32000" />
+      <workItem from="1606877013178" duration="16430000" />
     </task>
     <servers />
   </component>
@@ -82,5 +84,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606878044511">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1606878044511" />
+    <state x="282" y="118" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606877919568">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="282" y="118" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1440.900@0.0.1440.900" timestamp="1606877919568" />
+    <state x="229" y="86" key="SettingsEditor" timestamp="1606899111154">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="229" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1606899111154" />
+    <state x="521" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606878042263">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="521" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1606878042263" />
+    <state x="385" y="196" key="search.everywhere.popup" timestamp="1606878313608">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606878313608" />
   </component>
 </project>

@@ -271,9 +271,31 @@ function nextPage() {
 }
 
 /**
+ * 跳转页面
+ * @param page
+ */
+function changePage(page){
+    if (!page) return
+    pagination.current = page
+    // 重载数据
+    loadData(pagination.current)
+    // 重新计算分页对象
+    calcPagination()
+    // 设置底部信息
+    setInfo()
+
+}
+
+
+/**
  * 重新计算分页对象
  */
 function calcPagination() {
+    // 设置总数
+    pagination.total = data.length
+    // 重新计算总页数
+    pagination.totalPage = Number(Math.ceil(pagination.total / pagination.size))
+
     if (pagination.current === pagination.totalPage) {
         // 当前为最后一页
         pagination.hasPrePage = true
@@ -318,7 +340,78 @@ btn_modal_right.addEventListener('click', () => {
 function bindModalAdd() {
     modal_title.innerText = '新增学生信息'
     btn_modal_left.innerText = '提交'
+    btn_modal_left.addEventListener('click',addInfo)
 }
+
+/**
+ * 处理添加逻辑
+ */
+function addInfo() {
+    // 计算新的序号
+    let id = data.length + 1
+    // 构建data的item对象
+    let obj = {id: id}
+    // 获取info信息
+    let labels = document.getElementsByClassName('modal')[0].getElementsByClassName('content')[0].getElementsByTagName('label')
+    for (let i = 0; i < labels.length; i++) {
+        let k = labels[i].getElementsByTagName('input')[0].getAttribute('id')
+        let v = labels[i].getElementsByTagName('input')[0].value
+        obj[k] = v
+    }
+    // 检查数据是否合法
+    if (!checkObj(obj)) return
+    // 隐藏模态框
+    modal_container.classList.add('hide')
+    // 将新对象压入data中
+    data.push(obj)
+    // 重新计算分页对象
+    calcPagination()
+    // 跳转到最后一页
+    changePage(pagination.totalPage)
+    // 清理
+    clear()
+}
+
+/**
+ * 检验对象是否合法
+ * @param obj
+ */
+function checkObj(obj){
+    console.log(obj)
+    // 首先遍历判断内容是否为空
+    for (let i in obj){
+        if (obj[i].length === 0){
+            alert('内容不能为空')
+            return false
+        }
+    }
+    // 合法性校验
+    if (!/^\d{11}$/g.test(obj.studentId)){
+        alert('学号必须为11位数字')
+        return false
+    }
+    if (!/[\u4e00-\u9fa5]{2,}/g.test(obj.studentName)){
+        alert('姓名长度必须大于两个字符')
+        return false
+    }
+    if (!/[\u4e00-\u9fa5]{4,}/g.test(obj.college)){
+        alert('学院名必须大于四个字符')
+        return false
+    }
+    if (!/^\d{4}$/g.test(obj.grade)){
+        alert('年级必须为长度为4的数字，如2018')
+        return false
+    }
+    if (!/^\d{2}$/g.test(obj.age) && obj.age > 80 && age < 16){
+        alert('年龄不合法，请输入正确的年龄')
+        return false
+    }
+    return true
+
+
+
+}
+
 
 /**
  * 绑定查看模态框处理
@@ -369,12 +462,13 @@ function alterInfo(obj) {
     data[id - 1] = obj
     console.log(data[id - 1])
     console.log("更改了第" + (id - 1) + "条数据")
-    // 重载数据
-    loadData()
+    // 重载当前页数据
+    loadData(pagination.current)
     // 将模态框隐藏
     modal_container.classList.add('hide')
     clear()
 }
+
 
 
 /**
@@ -388,7 +482,7 @@ function clear() {
     // 清楚input内容
     let labels = document.getElementsByClassName('modal')[0].getElementsByClassName('content')[0].getElementsByTagName('label')
     for (let i = 0; i < labels.length; i++) {
-        labels[i].getElementsByTagName('input')[0].value = undefined
+        labels[i].getElementsByTagName('input')[0].value = ''
         labels[i].getElementsByTagName('input')[0].removeAttribute('disabled')
     }
     console.log(modal_container)
