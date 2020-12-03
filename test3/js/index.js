@@ -35,6 +35,8 @@ let btn_globalDelete = document.getElementById('delete')
 let table_tbody = document.getElementsByTagName('table')[0].getElementsByTagName('tbody')[0]
 // 底部信息
 let pagination_info = document.getElementsByClassName('footer-group')[0].getElementsByClassName('info')[0]
+// 选中全部
+let table_selectAll = document.getElementById('selectAll')
 
 /********************************************   结束  *******************************************/
 
@@ -52,6 +54,9 @@ let pagination = {
 
 // 当前表格的数据对象
 let data = []
+
+// 当前选中的数据id集
+let selectsIds = []
 
 /********************************************* 结束 *********************************************/
 
@@ -96,6 +101,7 @@ window.onload = function () {
     loadData()
     // 设置底部信息
     setInfo()
+
 }
 
 
@@ -241,6 +247,8 @@ function loadData(current = 1) {
 function prePage() {
     // 判断是否有上一页，没有则阻断操作
     if (pagination.hasPrePage === false) return
+    // 重置选择状态
+    resetSelectAllStatus()
     // 具备上一页，则执行翻页操作
     pagination.current--
     // 重新渲染表格数据
@@ -259,6 +267,8 @@ function prePage() {
 function nextPage() {
     // 判断是否有下一页，没有则阻断操作
     if (pagination.hasNextPage === false) return
+    // 重置选择状态
+    resetSelectAllStatus()
     // 具备上一页，则执行翻页操作
     pagination.current++
     // 重新渲染表格数据
@@ -276,6 +286,9 @@ function nextPage() {
  */
 function changePage(page){
     if (!page) return
+    // 重置选择状态
+    resetSelectAllStatus()
+
     pagination.current = page
     // 重载数据
     loadData(pagination.current)
@@ -283,7 +296,6 @@ function changePage(page){
     calcPagination()
     // 设置底部信息
     setInfo()
-
 }
 
 
@@ -329,6 +341,22 @@ btn_modal_right.addEventListener('click', () => {
     modal_container.classList.add('hide')
     // 清理
     clear()
+})
+// 全部选中被选中
+table_selectAll.addEventListener('click',(event)=>{
+    if(event.target.checked){
+        // 当前被选中
+        selectAll() // 选中所有
+    }else{
+        // 重置当前状态
+        console.log('被取消')
+        resetSelectAllStatus()
+    }
+})
+// 删除按钮监听事件🥰
+btn_globalDelete.addEventListener('click',()=>{
+    // 当删除按钮被单击
+    deleteData() // 删除操作
 })
 /*****************************************************************************************************************/
 
@@ -469,7 +497,65 @@ function alterInfo(obj) {
     clear()
 }
 
+/**
+ * 表格选择逻辑
+ */
+// 全选
+function selectAll (){
 
+    // 获取表格中所有的tr标签
+    let trs = table_tbody.getElementsByTagName('tr')
+    // 遍历当前页面的所有input框
+    for (let i = 0 ; i < trs.length; i++){
+        let td = trs[i].getElementsByTagName('td')
+        let input = td[0].getElementsByTagName('input')[0] // 获取当前行的checkbox
+        let id = td[1].innerText //获取当前表格行中的id
+        input.checked = true //设置选中
+        selectsIds.push(id) // 压入选中列表中
+    }
+    console.log(selectsIds)
+}
+
+
+// 从数据集中删除当前的数据
+function deleteData(){
+    if (selectsIds.length === 0 ) return // 当前没有选中，则不执行操作
+    // 如果存在选中项则进行删除
+    console.log(selectsIds)
+    for (let i in selectsIds){
+        data.splice(selectsIds[i]-1,1) //进行删除
+    }
+    console.log(data)
+    // 重载当前页的数据
+    loadData(pagination.current)
+    // 重新计算分页对象
+    calcPagination()
+    // 设置底部信息
+    setInfo()
+    // 重制选择状态
+    resetSelectAllStatus()
+}
+
+/**
+ * 重置当前全部选中checkbox状态
+ * 进行翻页操作，取消操作时需要重制
+ */
+function resetSelectAllStatus(){
+    // 全局全选按钮的重置
+    console.log(table_selectAll)
+    table_selectAll.checked = false
+
+    // 当进行添加后，修改后应该进行重置状态
+    // 获取表格中所有的tr标签
+    let trs = table_tbody.getElementsByTagName('tr')
+    // 遍历当前页面的所有input框
+    for (let i = 0 ; i < trs.length; i++){
+        let td = trs[i].getElementsByTagName('td')
+        let input = td[0].getElementsByTagName('input')[0] // 获取当前行的checkbox
+        input.checked = false //取消选中
+    }
+    selectsIds=[] // 清空已经选择的id
+}
 
 /**
  * 清除标题内容等

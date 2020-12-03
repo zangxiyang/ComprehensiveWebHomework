@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07d1a668-95f5-4c0b-8162-499fd20a1e26" name="Default Changelist" comment="">
+    <list default="true" id="07d1a668-95f5-4c0b-8162-499fd20a1e26" name="Default Changelist" comment="完成添加功能，正则验证">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test3/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test3/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/test3/js/index.js" afterDir="false" />
@@ -68,7 +68,16 @@
       <workItem from="1606838604950" duration="7917000" />
       <workItem from="1606876943137" duration="32000" />
       <workItem from="1606877013178" duration="16430000" />
+      <workItem from="1606986337342" duration="8976000" />
     </task>
+    <task id="LOCAL-00001" summary="完成添加功能，正则验证">
+      <created>1606961045194</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606961045194</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +95,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="完成添加功能，正则验证" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成添加功能，正则验证" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606878044511">
       <screen x="0" y="0" width="1440" height="900" />
@@ -99,6 +112,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="229" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1606899111154" />
+    <state x="320" y="187" key="Vcs.Push.Dialog.v2" timestamp="1606961048483">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="187" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1606961048482" />
     <state x="521" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606878042263">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
