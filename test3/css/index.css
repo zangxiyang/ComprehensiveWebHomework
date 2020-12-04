@@ -98,6 +98,13 @@ table thead tr{
     font-size: 14px;
     height: 50px;
 }
+table tbody tr:hover{
+    color: #fff;
+}
+
+table tbody tr:hover td{
+    background: #d67d7d !important;
+}
 table tbody td{
     height: 30px;
     text-align: center;

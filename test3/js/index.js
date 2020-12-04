@@ -101,7 +101,6 @@ window.onload = function () {
     loadData()
     // 设置底部信息
     setInfo()
-
 }
 
 
@@ -287,7 +286,10 @@ function loadData(current = 1) {
  */
 function prePage() {
     // 判断是否有上一页，没有则阻断操作
-    if (pagination.hasPrePage === false) return
+    if (pagination.hasPrePage === false){
+        alert('当前已经没有上一页了！')
+        return
+    }
     // 重置选择状态
     resetSelectAllStatus()
     // 具备上一页，则执行翻页操作
@@ -307,7 +309,10 @@ function prePage() {
  */
 function nextPage() {
     // 判断是否有下一页，没有则阻断操作
-    if (pagination.hasNextPage === false) return
+    if (pagination.hasNextPage === false){
+        alert('当前已经没有下一页了！')
+        return
+    }
     // 重置选择状态
     resetSelectAllStatus()
     // 具备上一页，则执行翻页操作
@@ -397,7 +402,14 @@ table_selectAll.addEventListener('click',(event)=>{
 // 删除按钮监听事件🥰
 btn_globalDelete.addEventListener('click',()=>{
     // 当删除按钮被单击
-    deleteData() // 删除操作
+    if (selectsIds.length === 0 ){
+        alert('请选择删除的项，当前选中为空！')
+        return
+    }
+    if (confirm('确认删除数据吗？')){
+        // 点击了确认
+        deleteData() // 删除操作
+    }
 })
 /*****************************************************************************************************************/
 
