@@ -9,3 +9,7 @@
     width: 1140px;
     margin: 0 auto;
 }
+/***防止非cli构建vue项目闪屏***/
+[v-cloak] {
+    display: none;
+}

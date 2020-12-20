@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>矩形动画</title>
+</head>
+<style>
+    .rectangle {
+        width: 200px;
+        height: 200px;
+        background: #ff0000;
+        position: relative;
+        animation: movement 10s linear 1s infinite normal;
+    }
+
+    @keyframes movement {
+        0% {
+            background: #ff0000;
+            left: 0;
+            top: 0;
+        }
+        25% {
+            background: #cdcd00;
+            left: calc(100% - 200px);
+            top: 0;
+        }
+        50% {
+            background: blue;
+            left: calc(100% - 200px);
+            top: 500px;
+        }
+        75% {
+            background: #46cbbb;
+            left: 0;
+            top: 500px;
+        }
+        100% {
+            background: #c20000;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+<body>
+<div class="rectangle"></div>
+</body>
+</html>
